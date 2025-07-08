@@ -1,47 +1,60 @@
-# nyc_311
+# Dagster-Netflix-Data-Pipeline
 
-This is a [Dagster](https://dagster.io/) project scaffolded with [`dagster project scaffold`](https://docs.dagster.io/guides/build/projects/creating-a-new-project).
 
-## Getting started
+This project is a data pipeline built using Dagster that processes and analyzes Netflix title data. It showcases how to orchestrate data ingestion, transformation, and visualization using modern data engineering tools.
 
-First, install your Dagster code location as a Python package. By using the --editable flag, pip will install your Python package in ["editable mode"](https://pip.pypa.io/en/latest/topics/local-project-installs/#editable-installs) so that as you develop, local code changes will automatically apply.
+
+📁 Project Structure
+
+- dagster_311_project/
+  - nyc_311/
+    - nyc_311/
+      - assets.py – Dagster asset definitions
+      - definitions.py – Dagster Definitions object
+    - nyc_311_tests/
+      - test_assets.py – Unit tests
+    - data/
+      - raw/ – Raw downloaded CSV files
+      - processed/ – Cleaned, processed CSV files
+  - netflix.duckdb – DuckDB database storing tables
+  - README.md – Project documentation
+  - setup.py, pyproject.toml, setup.cfg – Project metadata files
+
+
+## 📊 What the Pipeline Does
+
+1. Downloads the Netflix dataset (TidyTuesday - April 2021).
+2. Loads the CSV into a DuckDB table.
+3. Previews the top 5 rows of the dataset.
+4. Cleans missing data and stores a processed CSV.
+5. Visualizes the distribution of Movies vs TV Shows as a bar chart shown directly in the Dagster UI.
+
+## 🧠 Skills Demonstrated
+
+- Data Orchestration using Dagster
+- SQL & Python-based transformations with DuckDB and Pandas
+- Asset materialization & metadata visualization
+- Project structure and documentation for promotion-ready work
+
+## 🛠 Tech Stack
+
+- Python 3.12
+- Dagster
+- DuckDB
+- Pandas
+- Matplotlib
+
+## 📁 Source
+
+Dataset: [TidyTuesday Netflix Titles CSV](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-04-20/netflix_titles.csv)
+
+## 🚀 Running the Project
 
 ```bash
-pip install -e ".[dev]"
-```
+# Set up environment
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 
-Then, start the Dagster UI web server:
-
-```bash
+# Launch Dagster UI
 dagster dev
-```
-
-Open http://localhost:3000 with your browser to see the project.
-
-You can start writing assets in `nyc_311/assets.py`. The assets are automatically loaded into the Dagster code location as you define them.
-
-## Development
-
-### Adding new Python dependencies
-
-You can specify new Python dependencies in `setup.py`.
-
-### Unit testing
-
-Tests are in the `nyc_311_tests` directory and you can run tests using `pytest`:
-
-```bash
-pytest nyc_311_tests
-```
-
-### Schedules and sensors
-
-If you want to enable Dagster [Schedules](https://docs.dagster.io/guides/automate/schedules/) or [Sensors](https://docs.dagster.io/guides/automate/sensors/) for your jobs, the [Dagster Daemon](https://docs.dagster.io/guides/deploy/execution/dagster-daemon) process must be running. This is done automatically when you run `dagster dev`.
-
-Once your Dagster Daemon is running, you can start turning on schedules and sensors for your jobs.
-
-## Deploy on Dagster+
-
-The easiest way to deploy your Dagster project is to use Dagster+.
-
-Check out the [Dagster+ documentation](https://docs.dagster.io/dagster-plus/) to learn more.
